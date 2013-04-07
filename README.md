@@ -58,5 +58,5 @@ It only tries to help with managing the schema itself.
 Example usage:
 
     sqldiff.py \
-        <( mysqldump --no-data database1 | ./sqlnorm.py ) \
-        <( mysqldump --no-data database2 | ./sqlnorm.py )
+        <( mysqldump --no-data database1 ) \
+        <( mysqldump --no-data database2 )
