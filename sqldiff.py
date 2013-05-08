@@ -120,7 +120,7 @@ for table_name in sorted(new_schema.iterkeys()):
     table_changes += [ 'DROP COLUMN %s' % column for column in sorted(set(old_table.columns) - set(new_table.columns)) ]
     table_changes += [ new_table.add_column_clause(column) for column in new_table.columns if column not in old_table.columns ]
     table_changes += [ new_table.alter_column_clause(name) for name in new_table.columns if name in old_table.columns and old_table.column[name] != new_table.column[name] ]
-    table_changes += [ 'DROP %s' % name for name, attribute in old_table.attributes.iteritems() if attribute not in new_table.attributes.values() ]
+    table_changes += [ 'DROP %s' % name.replace('UNIQUE KEY', 'KEY') for name, attribute in old_table.attributes.iteritems() if attribute not in new_table.attributes.values() ]
     table_changes += [ 'ADD %s' % attribute for attribute in new_table.attributes.values() if attribute not in old_table.attributes.values() ]
     if table_changes:
         changes.append('ALTER TABLE %s\n  %s;\n' % (table_name, ',\n  '.join(table_changes)))
